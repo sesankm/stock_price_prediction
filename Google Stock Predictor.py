@@ -31,3 +31,4 @@ prediction = reg.predict(X_test)
 accuracy = r2_score(y_test, prediction)
 
 print(accuracy)
+# this came out to be 97.72 percent
