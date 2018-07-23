@@ -1,7 +1,7 @@
 # google-stock-predictor
 bayesian regression with sklearn
 
-### Google Stock data from 2004-2017
+### Google stock data from 2004-2017
 
 #### Features:
 Open <br>
