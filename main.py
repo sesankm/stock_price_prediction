@@ -55,6 +55,7 @@ def plot_price(ticker, df):
     plt.show()
 
 if __name__ == "__main__":
+    ticker = input("Enter ticker: ")
     df = read_and_preproces(ticker)
     show_correlation_heatmap(df)
     plot_price(ticker, df)
