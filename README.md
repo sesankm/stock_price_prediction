@@ -16,9 +16,6 @@
 
 ## correlation heat map of features for google
 * features used in regression models: 
-	* prev_day_open
-	* prev_day_close
-	* prev_day_high
 	* 10 SMA
 	* 50 SMA
 	* Price v 100 SMA
