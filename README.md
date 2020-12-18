@@ -1,5 +1,7 @@
 # stock_price_prediction 
-* predict stock price using 10 day, 50 day and 100 day moving averages
+* linear regression model which predicts stock price 
+
+![alt text](https://github.com/sesankm/stock_prediction/blob/master/google_price_chart.png)
 
 ## Libraries used:
 * pandas
@@ -12,4 +14,15 @@
 ## how to run:
 * `python main.py`
 
-![alt text](https://github.com/sesankm/stock_prediction/blob/master/google_price_chart.png)
+## correlation heat map of features for google
+* looks different for every stock
+* model yeilds consistently high accuracy by using these feautures:
+** prev_day_open
+** prev_day_close
+** prev_day_high
+** 10 SMA
+** 50 SMA
+** Price v 100 SMA
+
+![alt_text](https://github.com/sesankm/stock_price_prediction/blob/master/googl_correlation_heatmap.png)
+
