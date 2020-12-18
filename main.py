@@ -21,6 +21,9 @@ def update_df_sma(window, df):
 def read_and_preproces(ticker):
     # read and clean company historical price data
     df = get_data(ticker, start_date="2018-01-01")
+    df["prev_day_close"] = [np.nan] + df["close"].tolist()[:-1]
+    df["prev_day_open"] = [np.nan] + df["open"].tolist()[:-1]
+    df["prev_day_high"] = [np.nan] + df["high"].tolist()[:-1]
     update_df_sma(10, df)
     update_df_sma(50, df)
     update_df_sma(100, df)
@@ -56,9 +59,9 @@ if __name__ == "__main__":
     show_correlation_heatmap(df)
     plot_price(ticker, df)
     
-    X = df[["Price v 10 SMA", "Price v 50 SMA", "Price v 100 SMA"]].to_numpy()
+    X = df[["prev_day_open", "prev_day_close", "prev_day_high", "10 SMA", "50 SMA", "Price v 100 SMA"]].to_numpy()
     y = df["close"].to_numpy()
-    X *= .001 
+    X *= .001
     
     # model construction
     x_train, x_test, y_train, y_test = train_test_split(X, y)
