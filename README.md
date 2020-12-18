@@ -15,7 +15,7 @@
 * `python main.py`
 
 ## correlation heat map of features for google
-* heatmap looks different for every stock, but models yeild consistently high accuracy by using these feautures:
+* features used in regression models: 
 	* prev_day_open
 	* prev_day_close
 	* prev_day_high
