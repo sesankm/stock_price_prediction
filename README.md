@@ -9,3 +9,5 @@
 
 ## how to run:
 * `python main.py`
+
+![alt text](https://github.com/sesankm/stock_prediction/blob/master/google_price_chart.png)
