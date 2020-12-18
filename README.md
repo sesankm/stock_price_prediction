@@ -1,4 +1,6 @@
-# stock prediction using 10 day, 50 day and 100 day moving averages
+# stock_price_prediction 
+* predict stock price using 10 day, 50 day and 100 day moving averages
+
 ## Libraries used:
 * pandas
 * scikit-learn
