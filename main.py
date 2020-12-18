@@ -6,6 +6,7 @@ import pandas as pd
 import seaborn as sns
 from sklearn.linear_model import LinearRegression
 from sklearn.ensemble import AdaBoostRegressor
+from sklearn.ensemble import BaggingRegressor
 from sklearn.model_selection import train_test_split
 from yahoo_fin.stock_info import *
 
@@ -54,19 +55,20 @@ def plot_price(ticker, df):
     plt.show()
 
 if __name__ == "__main__":
-    ticker = input("Enter a ticker: ")
     df = read_and_preproces(ticker)
     show_correlation_heatmap(df)
     plot_price(ticker, df)
     
-    X = df[["prev_day_open", "prev_day_close", "prev_day_high", "10 SMA", "50 SMA", "Price v 100 SMA"]].to_numpy()
+    X = df[["10 SMA", "50 SMA", "Price v 100 SMA"]].to_numpy()
     y = df["close"].to_numpy()
     X *= .001
     
     # model construction
-    x_train, x_test, y_train, y_test = train_test_split(X, y)
+    x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=.4, train_size=.6)
     linear_regression_model = LinearRegression().fit(x_train, y_train)
     adaboost_regressor_model = AdaBoostRegressor(n_estimators=25).fit(x_train, y_train)
+    bagging_regressor_model = BaggingRegressor(n_estimators=25).fit(x_train, y_train)
     
     print("Linear Regression R2 Value: {}".format(linear_regression_model.score(x_test, y_test)))
     print("AdaBoost Regressor R2 Value: {}".format(adaboost_regressor_model.score(x_test, y_test)))
+    print("Bagging Regressor R2 Value: {}".format(bagging_regressor_model.score(x_test, y_test)))
