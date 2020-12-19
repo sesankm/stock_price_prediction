@@ -21,7 +21,7 @@
 ![alt_text](https://github.com/sesankm/stock_price_prediction/blob/master/googl_correlation_heatmap.png)
 
 # Models
-* MAE of models trained with Google stock data
+MAE of models trained with Google stock data
 * <strong>Linear Regression</strong>: Negative MAE=-43.88
 * <strong>AdaBoost Regressor</strong>: MAE=33.16
 * <strong>Bagging Regressor</strong>: MAE=15.85
