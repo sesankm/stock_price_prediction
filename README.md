@@ -1,7 +1,7 @@
 # stock_price_prediction 
 
 ## Overview
-* linear regression model which predicts stock price based on 10 day, 50 day and 100 day moving averages
+* model which predicts stock price based on 10 day, 50 day and 100 day moving averages
 * optmized AdaBoost, Bagging and Random Forest regressors with GridCV
 
 
