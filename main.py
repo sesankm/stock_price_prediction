@@ -74,7 +74,7 @@ if __name__ == "__main__":
     
     # model building
     linear_regression_model = LinearRegression().fit(x_train, y_train)
-    print(np.mean(cross_val_score(linear_regression_model, x_train, y_train, scoring = 'neg_mean_absolute_error')))
+    print("Linear regression negative MAE: {}".format(np.mean(cross_val_score(linear_regression_model, x_train, y_train, scoring = 'neg_mean_absolute_error'))))
     
     # grid search
     # adaboost regressor
@@ -82,13 +82,13 @@ if __name__ == "__main__":
                        'loss':('linear', 'square', 'exponential')}
     adaboost_regressor_model = GridSearchCV(AdaBoostRegressor(), adaboost_params, scoring="r2").fit(x_train, y_train).best_estimator_
     adaboost_pred = adaboost_regressor_model.predict(x_test)
-    print(mean_absolute_error(y_test, adaboost_pred))
+    print("Adaboost regressor MAE: {}".format(mean_absolute_error(y_test, adaboost_pred)))
     
     # bagging regressor
     bagging_params = {"n_estimators": range(10, 200, 10)}
     bagging_regressor_model = GridSearchCV(BaggingRegressor(), bagging_params, scoring='r2').fit(x_train, y_train).best_estimator_
     bagging_pred = bagging_regressor_model.predict(x_test)
-    print(mean_absolute_error(y_test, bagging_pred))
+    print("Bagging regressor MAE: {}".format(mean_absolute_error(y_test, bagging_pred)))
     
     # random forrest regressor
     rf_parameters = {'n_estimators': range(100, 200, 10), 
@@ -96,7 +96,4 @@ if __name__ == "__main__":
                      'max_features': ('auto', 'sqrt', 'log2')}
     rf_regressor_model = GridSearchCV(RandomForestRegressor(), rf_parameters, scoring='r2').fit(x_train, y_train).best_estimator_
     rf_pred = rf_regressor_model.predict(x_test)
-    print(mean_absolute_error(y_test, rf_pred))
-    
-    
-    
+    print("Random Forest regressor MAE: {}".format(mean_absolute_error(y_test, rf_pred)))
