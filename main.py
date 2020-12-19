@@ -4,9 +4,13 @@ from matplotlib import gridspec
 import numpy as np
 import pandas as pd
 import seaborn as sns
-from sklearn.linear_model import LinearRegression
 from sklearn.ensemble import AdaBoostRegressor
 from sklearn.ensemble import BaggingRegressor
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_absolute_error
+from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import GridSearchCV
 from sklearn.model_selection import train_test_split
 from yahoo_fin.stock_info import *
 
@@ -57,19 +61,42 @@ def plot_price(ticker, df):
 if __name__ == "__main__":
     ticker = input("Enter ticker: ")
     df = read_and_preproces(ticker)
+    
     show_correlation_heatmap(df)
     plot_price(ticker, df)
     
     X = df[["10 SMA", "50 SMA", "Price v 100 SMA"]].to_numpy()
     y = df["close"].to_numpy()
     X *= .001
-    
-    # model construction
+
+    # train test split    
     x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=.4, train_size=.6)
-    linear_regression_model = LinearRegression().fit(x_train, y_train)
-    adaboost_regressor_model = AdaBoostRegressor(n_estimators=25).fit(x_train, y_train)
-    bagging_regressor_model = BaggingRegressor(n_estimators=25).fit(x_train, y_train)
     
-    print("Linear Regression R2 Value: {}".format(linear_regression_model.score(x_test, y_test)))
-    print("AdaBoost Regressor R2 Value: {}".format(adaboost_regressor_model.score(x_test, y_test)))
-    print("Bagging Regressor R2 Value: {}".format(bagging_regressor_model.score(x_test, y_test)))
+    # model building
+    linear_regression_model = LinearRegression().fit(x_train, y_train)
+    print(np.mean(cross_val_score(linear_regression_model, x_train, y_train, scoring = 'neg_mean_absolute_error')))
+    
+    # grid search
+    # adaboost regressor
+    adaboost_params = {"n_estimators": range(50, 300, 10), 
+                       'loss':('linear', 'square', 'exponential')}
+    adaboost_regressor_model = GridSearchCV(AdaBoostRegressor(), adaboost_params, scoring="r2").fit(x_train, y_train).best_estimator_
+    adaboost_pred = adaboost_regressor_model.predict(x_test)
+    print(mean_absolute_error(y_test, adaboost_pred))
+    
+    # bagging regressor
+    bagging_params = {"n_estimators": range(10, 200, 10)}
+    bagging_regressor_model = GridSearchCV(BaggingRegressor(), bagging_params, scoring='r2').fit(x_train, y_train).best_estimator_
+    bagging_pred = bagging_regressor_model.predict(x_test)
+    print(mean_absolute_error(y_test, bagging_pred))
+    
+    # random forrest regressor
+    rf_parameters = {'n_estimators': range(100, 200, 10), 
+                     'criterion': ('mse', 'mae'), 
+                     'max_features': ('auto', 'sqrt', 'log2')}
+    rf_regressor_model = GridSearchCV(RandomForestRegressor(), rf_parameters, scoring='r2').fit(x_train, y_train).best_estimator_
+    rf_pred = rf_regressor_model.predict(x_test)
+    print(mean_absolute_error(y_test, rf_pred))
+    
+    
+    
