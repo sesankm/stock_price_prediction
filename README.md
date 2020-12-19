@@ -8,7 +8,7 @@
 ![alt text](https://github.com/sesankm/stock_prediction/blob/master/google_price_chart.png)
 
 ## Libraries used:
-<strong>Python Version:</strong>3.8<br>
+<strong>Python Version:</strong>3.8 <br>
 <strong>Libraries:</strong>: pandas, scikit-learn, yahoo_fin, seaborn, matplotlib, numpy
 
 
