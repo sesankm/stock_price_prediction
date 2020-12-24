@@ -22,8 +22,8 @@
 
 # Models
 MAE of models trained with Google stock data <br>
-<strong>Linear Regression</strong>: Negative MAE=-43.88
-<strong>AdaBoost Regressor</strong>: MAE=33.16
-<strong>Bagging Regressor</strong>: MAE=15.85
-<strong>Random Forest Regressor</strong> MAE=16.27
+<strong>Linear Regression</strong>: Negative MAE=-43.88 <br>
+<strong>AdaBoost Regressor</strong>: MAE=33.16<br>
+<strong>Bagging Regressor</strong>: MAE=15.85<br>
+<strong>Random Forest Regressor</strong> MAE=16.27<br>
 
